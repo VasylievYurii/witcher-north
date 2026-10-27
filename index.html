@@ -69,7 +69,7 @@ section > .wrap > header{display:grid;gap:10px;margin-bottom:28px}
 .sources{display:grid;gap:10px}
 .src{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
 .src b{font-family:var(--f-display);font-size:1.05rem}
-.src span{grid-column:2;color:var(--muted);font-size:.93rem}
+.src span:not(.tag){grid-column:2;color:var(--muted);font-size:.93rem}
 .tag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid currentColor;white-space:nowrap;align-self:center}
 .tag.book{color:var(--gold)} .tag.game{color:var(--steel)} .tag.series{color:var(--wax)}
 
@@ -221,6 +221,10 @@ footer p{max-width:80ch;margin-bottom:8px}
 
 <nav class="top"><div class="wrap">
   <span class="brand">Корони Півночі</span>
+  <a href="index.html" aria-current="page" style="color:var(--ink);border-color:var(--wax)">Королівства</a>
+  <a href="mages.html">Маги і Ложа</a>
+  <a href="witchers.html">Відьмаки</a>
+  <span style="width:1px;height:18px;background:var(--line)"></span>
   <a href="#overview">Загальна картина</a>
   <a href="#map">Карта</a>
   <a href="#timeline">Хронологія</a>
@@ -377,6 +381,7 @@ footer p{max-width:80ch;margin-bottom:8px}
 <footer><div class="wrap">
   <p>Кадри персонажів і карта взяті з The Witcher Wiki (Fandom): ігрові зображення належать CD PROJEKT RED, серіальні — Netflix. Сторінка є неофіційним фанатським довідником і не пов'язана з правовласниками.</p>
   <p>Дати подано за ігровим каноном вікі. У книгах і серіалі окремі роки можуть відрізнятися на рік-два.</p>
+  <p><a href="mages.html">Маги і Ложа →</a> · <a href="witchers.html">Відьмаки і школи →</a></p>
 </div></footer>
 
 <script>
@@ -668,7 +673,7 @@ function cardHTML(id){
   const has = {game: !!i.game, series: !!i.series};
   const v = view[id] && has[view[id]] ? view[id] : (has.game ? "game" : (has.series ? "series" : null));
   const src = v ? i[v] : null;
-  const cap = v === "series" ? `Серіал Netflix${c.a ? " · " + c.a : ""}` : (v === "game" ? "Ігри CD PROJEKT RED" : "");
+  const cap = v === "series" ? `Серіал Netflix${c.a ? " · " + c.a : ""}` : (v === "game" ? (/gwent/i.test(i.gameSrc||"") ? "«Гвинт», CD PROJEKT RED" : /Tw2/i.test(i.gameSrc||"") ? "Відьмак 2" : /Tw3/i.test(i.gameSrc||"") ? "Відьмак 3" : "Ігри CD PROJEKT RED") : "");
   return `<div class="pic">${src ? `<img src="${src}" alt="${esc(c.n)}" loading="lazy"><span class="cap">${esc(cap)}</span>` : `<div class="none">Кадру немає: персонаж є тільки в книгах</div>`}</div>
     <div class="toggle"><button data-v="game" aria-pressed="${v==="game"}" ${has.game?"":"disabled"}>Гра</button><button data-v="series" aria-pressed="${v==="series"}" ${has.series?"":"disabled"}>Серіал</button></div>
     <div class="txt"><h3>${esc(c.n)}</h3><span class="role">${esc(c.r)}</span><span class="yrs">${esc(c.y)} · ${esc(c.realm==="none"?"поза державами":realmName(c.realm))}</span>
