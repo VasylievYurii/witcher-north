@@ -8,239 +8,280 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700;800&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&display=swap">
 </head>
 <body>
 <style>
-/* Layout: steel-and-wax chronicle — sticky section nav, map + dossier panel, then a dated ledger and a portrait gallery */
+/* Atlas-chronicle: the map bleeds through each page head; an era ruler drives the map; sections open with a two-column header (title left, explanation right) */
 :root{
-  --bg:#e3e2dd; --surface:#f1f0ec; --ink:#1b1d20; --muted:#5b5e63; --line:#c6c4bd;
-  --wax:#8e1f22; --gold:#8a6a1f; --steel:#3b4d5c;
-  --s-north:#2f6e8f; --s-redania:#b3262c; --s-nilf:#1d1d1f; --s-war:#c9781a; --s-neutral:#5f8a4a; --s-elf:#7a5aa8; --s-unknown:#9a978f;
-  --dot-ring:#ffffff;
-  --f-display:"Alegreya SC", "Palatino Linotype", Georgia, serif;
-  --f-body:"Alegreya Sans", "Segoe UI", system-ui, sans-serif;
-  --f-mono:"IBM Plex Mono", Consolas, monospace;
+  --bg:#e8ecea; --surface:#f5f7f5; --ink:#162125; --muted:#56646a; --line:#cdd5d2;
+  --wax:#a3263a; --gold:#8a6a1c; --steel:#2b5c78;
+  --s-north:#2c6f94; --s-redania:#b8293a; --s-nilf:#1d2427; --s-war:#c4731a; --s-neutral:#4f8a45; --s-elf:#7656a8; --s-unknown:#97a09d;
+  --dot-ring:#ffffff; --plate:#162125;
+  --f-display:"Forum", "Palatino Linotype", Georgia, serif;
+  --f-body:"Literata", Georgia, "Times New Roman", serif;
+  --f-mono:"Literata", Georgia, serif;
+  --gut:max(16px, env(safe-area-inset-left, 0px));
+  --gutr:max(16px, env(safe-area-inset-right, 0px));
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#121417; --surface:#1b1e22; --ink:#e4e1d9; --muted:#9b9ea3; --line:#2f3338;
-  --wax:#de5a52; --gold:#d6b45e; --steel:#9db4c6;
-  --s-north:#4da3cf; --s-redania:#e0484e; --s-nilf:#e8c55a; --s-war:#e89a3c; --s-neutral:#7fb565; --s-elf:#a888d6; --s-unknown:#7c7f85;
-  --dot-ring:#121417; color-scheme:dark;
+  --bg:#0f1a1d; --surface:#15242a; --ink:#e6ebe7; --muted:#98a8aa; --line:#26393f;
+  --wax:#ee6f7e; --gold:#d8b45c; --steel:#8bc0dd;
+  --s-north:#5cb0dc; --s-redania:#ec5865; --s-nilf:#e3c35c; --s-war:#eb9c43; --s-neutral:#84bf6c; --s-elf:#ad8fe0; --s-unknown:#7b8a8c;
+  --dot-ring:#0f1a1d; --plate:#0b1416; color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#121417; --surface:#1b1e22; --ink:#e4e1d9; --muted:#9b9ea3; --line:#2f3338;
-  --wax:#de5a52; --gold:#d6b45e; --steel:#9db4c6;
-  --s-north:#4da3cf; --s-redania:#e0484e; --s-nilf:#e8c55a; --s-war:#e89a3c; --s-neutral:#7fb565; --s-elf:#a888d6; --s-unknown:#7c7f85;
-  --dot-ring:#121417; color-scheme:dark;
+  --bg:#0f1a1d; --surface:#15242a; --ink:#e6ebe7; --muted:#98a8aa; --line:#26393f;
+  --wax:#ee6f7e; --gold:#d8b45c; --steel:#8bc0dd;
+  --s-north:#5cb0dc; --s-redania:#ec5865; --s-nilf:#e3c35c; --s-war:#eb9c43; --s-neutral:#84bf6c; --s-elf:#ad8fe0; --s-unknown:#7b8a8c;
+  --dot-ring:#0f1a1d; --plate:#0b1416; color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:17px/1.55 var(--f-body);
-  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+html{scroll-padding-top:calc(env(safe-area-inset-top, 0px) + 112px)}
+body{background:var(--bg);color:var(--ink);font:16.5px/1.62 var(--f-body);font-variant-numeric:lining-nums;
+  padding-left:var(--gut);padding-right:var(--gutr);-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
-.wrap{max-width:1180px;margin:0 auto}
-h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;line-height:1.15;margin:0}
-h2{font-size:clamp(1.6rem,3.4vw,2.3rem)}
-h3{font-size:1.25rem}
+.wrap{max-width:1200px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:400;text-wrap:balance;line-height:1.08;margin:0;letter-spacing:.005em}
+h2{font-size:clamp(2rem,4.2vw,3.1rem)}
+h3{font-size:1.42rem}
 p{margin:0}
-a{color:var(--wax)}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--wax);outline-offset:2px}
-.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.lede{max-width:65ch;color:var(--muted)}
+a{color:var(--wax);text-underline-offset:3px}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--wax);outline-offset:3px}
+.eyebrow{font-size:.85rem;color:var(--muted);letter-spacing:0}
+.lede{max-width:62ch;color:var(--muted)}
+.lbl{font-size:.88rem;color:var(--muted)}
 
-/* nav */
-nav.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line)}
-nav.top .wrap{display:flex;gap:4px 18px;align-items:center;flex-wrap:wrap;padding-block:10px}
-nav.top .brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;margin-right:auto;letter-spacing:.02em}
-nav.top a{font-size:.95rem;text-decoration:none;color:var(--muted);padding:4px 0;border-bottom:2px solid transparent}
-nav.top a:hover{color:var(--ink);border-color:var(--wax)}
+/* nav: brand + page switch on one row, in-page contents on a scrollable second row */
+nav.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line);
+  margin-left:calc(-1 * var(--gut));margin-right:calc(-1 * var(--gutr));padding-left:var(--gut);padding-right:var(--gutr)}
+nav.top .row{display:flex;align-items:center;gap:12px 24px;padding-block:12px 8px;flex-wrap:wrap}
+nav.top .brand{font-family:var(--f-display);font-size:1.45rem;color:var(--ink);text-decoration:none;margin-right:auto;line-height:1}
+nav.top .pages{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
+nav.top .pages a{font-size:.92rem;text-decoration:none;color:var(--muted);padding:5px 14px;border-radius:999px;white-space:nowrap}
+nav.top .pages a:hover{color:var(--ink)}
+nav.top .pages a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+nav.top .toc{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+nav.top .toc::-webkit-scrollbar{display:none}
+nav.top .toc a{font-size:.88rem;color:var(--muted);text-decoration:none;white-space:nowrap;padding-block:2px;border-bottom:1px solid transparent}
+nav.top .toc a:hover{color:var(--ink);border-color:var(--wax)}
 
-section{padding-block:56px;border-bottom:1px solid var(--line)}
-section > .wrap > header{display:grid;gap:10px;margin-bottom:28px}
+section{padding-block:72px;border-top:1px solid var(--line)}
+section > .wrap > header{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:14px 56px;align-items:end;margin-bottom:36px}
+section > .wrap > header .lede{font-size:1.02rem}
 
-/* hero */
-.hero{padding-block:48px 40px}
-.hero h1{font-size:clamp(2.4rem,6.5vw,4.6rem);font-weight:800;letter-spacing:.01em}
-.hero h1 em{font-style:normal;color:var(--wax)}
-.hero .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end}
-.hero .lede{font-size:1.12rem;margin-top:16px}
-.sources{display:grid;gap:10px}
-.src{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-.src b{font-family:var(--f-display);font-size:1.05rem}
-.src span:not(.tag){grid-column:2;color:var(--muted);font-size:.93rem}
-.tag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid currentColor;white-space:nowrap;align-self:center}
-.tag.book{color:var(--gold)} .tag.game{color:var(--steel)} .tag.series{color:var(--wax)}
+/* hero: the atlas plate shows through behind the title */
+.hero{margin-left:calc(-1 * var(--gut));margin-right:calc(-1 * var(--gutr));padding:72px var(--gutr) 64px var(--gut);
+  background-color:var(--bg);
+  background-image:linear-gradient(100deg, var(--bg) 0%, var(--bg) 42%, color-mix(in srgb, var(--bg) 70%, transparent) 62%, color-mix(in srgb, var(--bg) 35%, transparent) 100%), var(--map, none);
+  background-size:cover;background-position:62% 35%}
+.hero h1{font-size:clamp(2.7rem,7.2vw,5.6rem);line-height:.98;letter-spacing:-.005em;max-width:13ch}
+.hero h1 em{font-style:normal;color:inherit}
+.hero .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:end}
+.hero .lede{font-size:1.1rem;margin-top:22px;color:var(--ink);opacity:.82}
+.sources{display:grid;gap:0;background:color-mix(in srgb, var(--bg) 88%, transparent);border-radius:10px;padding:6px 18px;backdrop-filter:blur(3px)}
+.src{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;padding:14px 0;border-top:1px solid var(--line)}
+.src:first-child{border-top:0}
+.src b{font-family:var(--f-display);font-weight:400;font-size:1.22rem;line-height:1.15}
+.src span:not(.tag){grid-column:2;color:var(--muted);font-size:.9rem;line-height:1.5}
+.tag{font-size:.74rem;line-height:1;padding:4px 8px;border-radius:999px;white-space:nowrap;align-self:center;justify-self:start;
+  color:var(--c);background:color-mix(in srgb, var(--c) 13%, transparent)}
+.tag.book{--c:var(--gold)} .tag.game{--c:var(--steel)} .tag.series{--c:var(--wax)}
 
 /* big picture */
-.blocs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.bloc{padding:18px;border-top:4px solid var(--c);background:var(--surface);border-radius:0 0 6px 6px;display:grid;gap:8px;align-content:start}
-.bloc h3{color:var(--ink)}
-.bloc p{color:var(--muted);font-size:.97rem}
-.bloc ul{margin:0;padding-left:18px;font-size:.95rem}
-.wars{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.war{padding:16px 18px;border-right:1px solid var(--line);display:grid;gap:6px;align-content:start}
-.war:last-child{border-right:0}
-.war .yr{font-family:var(--f-mono);color:var(--wax);font-size:.85rem}
+.blocs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.bloc{padding:22px 26px 6px 0;display:grid;gap:10px;align-content:start}
+.bloc + .bloc{padding-left:26px;border-left:1px solid var(--line)}
+.bloc h3{display:flex;align-items:center;gap:10px}
+.bloc h3::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.bloc p{color:var(--muted);font-size:.96rem}
+.bloc ul{margin:0;padding-left:18px;font-size:.94rem;display:grid;gap:4px}
+.wars{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.war{display:grid;gap:8px;align-content:start}
+.war .yr{font-family:var(--f-display);font-size:2.6rem;line-height:1;color:var(--wax)}
+.war .kind{font-size:.88rem;color:var(--muted)}
 .war p{font-size:.95rem;color:var(--muted)}
 
-/* map */
-.eras{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.era{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer;display:grid;line-height:1.2;text-align:left}
-.era small{font-size:.75rem;color:var(--muted)}
-.era[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.era[aria-pressed="true"] small{color:var(--bg);opacity:.75}
-.mapgrid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:22px;align-items:start}
-.mapbox{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#c9b48a}
+/* era ruler */
+.eras{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);position:relative;margin-bottom:22px;overflow-x:auto;padding-top:4px}
+.eras::before{content:"";position:absolute;left:8px;right:8px;top:12px;height:2px;background:var(--line)}
+.era{position:relative;border:0;background:none;padding:26px 12px 6px 0;cursor:pointer;display:grid;gap:2px;text-align:left;line-height:1.2}
+.era::before{content:"";position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--muted);box-sizing:border-box}
+.era b{font-family:var(--f-display);font-weight:400;font-size:1.9rem;line-height:1}
+.era small{font-size:.82rem;color:var(--muted)}
+.era:hover::before{border-color:var(--ink)}
+.era[aria-pressed="true"]::before{background:var(--wax);border-color:var(--wax);box-shadow:0 0 0 4px color-mix(in srgb, var(--wax) 22%, transparent)}
+.era[aria-pressed="true"] b{color:var(--wax)}
+
+/* map plate */
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:28px;align-items:start}
+.mapbox{position:relative;border-radius:10px;overflow:hidden;background:#c9b48a;box-shadow:0 0 0 1px var(--line)}
 .mapbox img{display:block;width:100%;height:auto}
 .hot{--d:16px;position:absolute;transform:translate(calc(var(--d) / -2),-50%);display:flex;align-items:center;gap:5px;background:none;border:0;padding:0;cursor:pointer}
 .hot.l{flex-direction:row-reverse;transform:translate(calc(-100% + var(--d) / 2),-50%)}
-.hot i{width:var(--d);height:var(--d);border-radius:50%;background:var(--sc);border:3px solid var(--dot-ring);box-shadow:0 1px 4px rgba(0,0,0,.45);flex:none;transition:transform .15s}
-.hot span{font-family:var(--f-display);font-weight:700;font-size:.8rem;background:rgba(20,18,16,.78);color:#f3efe6;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.hot i{width:var(--d);height:var(--d);border-radius:50%;background:var(--sc);border:3px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.5);flex:none;transition:transform .15s ease-out}
+.hot span{font-family:var(--f-display);font-size:.86rem;background:rgba(16,24,27,.82);color:#f1f3ef;padding:2px 8px;border-radius:999px;white-space:nowrap}
 .hot:hover i,.hot[aria-pressed="true"] i{transform:scale(1.35)}
-.hot[aria-pressed="true"] span{background:#8e1f22}
-.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:.88rem;color:var(--muted)}
-.legend b{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--sc)}
-.mapnote{font-size:.8rem;color:var(--muted);margin-top:8px}
-.chips{display:none;flex-wrap:wrap;gap:6px;margin-top:12px}
-.chip{border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:4px 9px;font-size:.88rem;cursor:pointer;display:flex;align-items:center;gap:6px}
+.hot[aria-pressed="true"] span{background:#a3263a}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:.86rem;color:var(--muted)}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;background:var(--sc)}
+.mapnote{font-size:.82rem;color:var(--muted);margin-top:10px}
+.chips{display:none;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:.86rem;cursor:pointer;display:flex;align-items:center;gap:7px}
 .chip i{width:9px;height:9px;border-radius:50%;background:var(--sc)}
-.chip[aria-pressed="true"]{border-color:var(--wax);color:var(--wax)}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
 
-.dossier{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top, 0px) + 64px)}
-.dossier .head{display:grid;gap:4px}
-.dossier h3{font-size:1.6rem}
-.status{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:.95rem}
+.dossier{background:var(--surface);border-radius:10px;padding:24px;display:grid;gap:16px;position:sticky;top:calc(env(safe-area-inset-top, 0px) + 118px)}
+.dossier .head{display:grid;gap:6px}
+.dossier h3{font-size:2.2rem}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.95rem}
 .status i{width:12px;height:12px;border-radius:50%;background:var(--sc)}
-.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;margin:0}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.92rem;margin:0}
 .facts dt{color:var(--muted)} .facts dd{margin:0}
-.eranote{border-left:3px solid var(--sc);padding:4px 0 4px 12px;font-size:.97rem}
+.eranote{padding:12px 14px;border-radius:8px;background:color-mix(in srgb, var(--sc) 11%, transparent);font-size:.96rem}
 .line{display:grid;gap:0;margin:0;padding:0;list-style:none}
-.line li{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;padding:7px 0;border-top:1px dashed var(--line)}
+.line li{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
 .line li:first-child{border-top:0}
 .ava{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;background:var(--line);display:block}
-.ava.none{display:grid;place-items:center;font-family:var(--f-display);color:var(--muted);font-size:1.1rem}
-.line .who{font-weight:700;line-height:1.25}
-.line .who small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}
+.ava.none{display:grid;place-items:center;font-family:var(--f-display);color:var(--muted);font-size:1.2rem}
+.line .who{font-family:var(--f-display);font-size:1.12rem;line-height:1.2}
+.line .who small{display:block;font-family:var(--f-body);color:var(--muted);font-size:.84rem}
 .line button.who{background:none;border:0;padding:0;text-align:left;cursor:pointer}
 .line button.who:hover{color:var(--wax)}
 
-/* timeline */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.flt{border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:6px 12px;cursor:pointer;font-size:.92rem}
+/* timeline: years in display numerals on a connecting spine */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px}
+.flt{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.9rem}
+.flt:hover{border-color:var(--muted)}
 .flt[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.tl{list-style:none;margin:0;padding:0;display:grid}
-.tl > li.ageh{font-family:var(--f-display);font-size:1.15rem;color:var(--wax);padding:22px 0 8px;border-bottom:1px solid var(--line)}
-.ev{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
-.ev .yr{font-family:var(--f-mono);font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink);padding-top:2px}
-.ev .yr small{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}
-.ev .body{display:grid;gap:8px}
-.ev h4{margin:0;font-family:var(--f-display);font-size:1.15rem;font-weight:700}
-.ev p{color:var(--muted);max-width:70ch}
+select.flt{padding-right:30px}
+.tl{list-style:none;margin:0;padding:0;display:grid;position:relative}
+.tl > li.ageh{font-family:var(--f-display);font-size:1.6rem;color:var(--wax);padding:34px 0 8px}
+.ev{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;padding:18px 0;position:relative}
+.ev::before{content:"";position:absolute;left:150px;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(14px)}
+.ev::after{content:"";position:absolute;left:150px;top:28px;width:9px;height:9px;border-radius:50%;background:var(--wax);transform:translateX(10px)}
+.ev .yr{font-family:var(--f-display);font-size:1.55rem;line-height:1.1;text-align:right;padding-right:6px}
+.ev .yr small{display:block;font-family:var(--f-body);color:var(--muted);font-size:.8rem;margin-top:4px}
+.ev .body{display:grid;gap:8px;padding-left:22px}
+.ev h4{font-size:1.4rem}
+.ev p{color:var(--muted);max-width:68ch}
 .ev .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .ev .faces{display:flex;gap:6px;flex-wrap:wrap}
-.face{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:2px 10px 2px 2px;font-size:.85rem;cursor:pointer}
+.face{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid transparent;border-radius:999px;padding:3px 12px 3px 3px;font-size:.86rem;cursor:pointer}
 .face img,.face .ava{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:top}
-.face .ava{font-size:.7rem}
+.face .ava{font-size:.75rem}
 .face:hover{border-color:var(--wax)}
 .ev.hidden{display:none}
 
 /* endings */
-.ends{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
-.end{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:8px;align-content:start}
-.end .cond{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.ends{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px;padding-top:28px;border-top:2px solid var(--ink)}
+.end{display:grid;gap:8px;align-content:start;padding-top:14px}
+.end .cond{font-size:.86rem;color:var(--muted)}
 .end p{font-size:.95rem}
 
-/* cards */
-.cardtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:grid;grid-template-rows:auto auto 1fr}
-.card.flash{outline:3px solid var(--wax)}
-.pic{position:relative;aspect-ratio:4/5;background:var(--line);max-width:100%}
+/* gallery: portraits without boxes, text sits under the image */
+.cardtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:40px 24px}
+.card{display:grid;grid-template-rows:auto auto 1fr;align-content:start;scroll-margin-top:140px}
+.card.flash .pic{outline:3px solid var(--wax);outline-offset:3px}
+.pic{position:relative;aspect-ratio:4/5;background:var(--line);max-width:100%;border-radius:8px;overflow:hidden}
 .pic img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .pic .none{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px;color:var(--muted);font-size:.9rem}
-.pic .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 10px 6px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#f1ede4;font-size:.75rem;font-family:var(--f-mono)}
-.toggle{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
-.toggle button{border:0;background:none;padding:7px;cursor:pointer;font-size:.85rem;color:var(--muted)}
-.toggle button[aria-pressed="true"]{color:var(--ink);font-weight:700;box-shadow:inset 0 -3px 0 var(--wax)}
+.pic .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 8px;background:linear-gradient(transparent,rgba(8,12,14,.78));color:#eef1ed;font-size:.76rem}
+.toggle{display:inline-grid;grid-template-columns:1fr 1fr;justify-self:start;margin-top:10px;background:var(--surface);border-radius:999px;padding:3px;gap:2px}
+.toggle button{border:0;background:none;padding:4px 14px;border-radius:999px;cursor:pointer;font-size:.84rem;color:var(--muted)}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .toggle button:disabled{opacity:.35;cursor:not-allowed}
-.card .txt{padding:14px;display:grid;gap:6px;align-content:start}
-.card h3{font-size:1.15rem}
-.card .role{font-size:.9rem;color:var(--wax);font-weight:500}
-.card .yrs{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
-.card p{font-size:.92rem;color:var(--muted)}
-.card .actor{font-size:.82rem}
+.card .txt{padding:12px 2px 0;display:grid;gap:6px;align-content:start}
+.card h3{font-size:1.55rem}
+.card .role{font-size:.92rem;color:var(--wax)}
+.card .yrs{font-size:.84rem;color:var(--muted)}
+.card p{font-size:.93rem;color:var(--muted)}
+.card .actor{font-size:.84rem;color:var(--muted)}
 .card .actor b{font-weight:500;color:var(--ink)}
-.card .tags{display:flex;gap:5px;flex-wrap:wrap}
-.card details{font-size:.92rem;color:var(--muted)}
-.card details summary{cursor:pointer;color:var(--ink);font-weight:500}
-.card details p{margin-top:6px}
-.card .game{border-left:3px solid var(--steel);padding-left:10px;color:var(--ink)}
+.card .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:2px}
+.card details{font-size:.93rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.card details summary{cursor:pointer;color:var(--ink);font-family:var(--f-display);font-size:1.12rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.card details summary::-webkit-details-marker{display:none}
+.card details summary::after{content:"+";font-family:var(--f-body);color:var(--wax);font-size:1.1rem}
+.card details[open] summary::after{content:"–"}
+.card details p{margin-top:8px;line-height:1.6}
+.card p.game{padding:10px 12px;border-radius:8px;background:color-mix(in srgb, var(--steel) 10%, transparent);color:var(--ink)}
 
 /* family tree */
-.tree{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:12px}
+.tree{overflow-x:auto;border-radius:10px;background:var(--surface);padding:16px}
 .tree svg{display:block;min-width:760px;width:100%;height:auto}
 .tree text{fill:var(--ink);font-family:var(--f-body)}
 .tree .sub{fill:var(--muted);font-size:12px}
-.tree .ttl{font-family:var(--f-display);font-weight:700;font-size:15px}
+.tree .ttl{font-family:var(--f-display);font-size:17px}
 .tree .ln{stroke:var(--muted);stroke-width:1.5;fill:none}
 .tree .ln.red{stroke:var(--wax);stroke-dasharray:5 4}
 .tree .bx{fill:var(--bg);stroke:var(--line)}
 .tree .bx.hi{stroke:var(--wax);stroke-width:2}
-.treenote{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
-.treenote div{padding-left:14px;border-left:3px solid var(--gold)}
+.treenote{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-top:32px}
+.treenote div{display:grid;gap:8px}
 
 /* faq */
-.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:0 36px}
-.faq details{border-bottom:1px solid var(--line);padding:14px 0}
-.faq summary{cursor:pointer;font-weight:700;font-size:1.03rem;list-style:none;display:flex;gap:10px}
-.faq summary::before{content:"+";font-family:var(--f-mono);color:var(--wax);width:14px;flex:none}
-.faq details[open] summary::before{content:"–"}
-.faq details p{margin-top:8px;color:var(--muted);padding-left:24px}
+.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:2px solid var(--ink)}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-family:var(--f-display);font-size:1.3rem;line-height:1.2;list-style:none;display:flex;gap:12px;justify-content:space-between}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-body);color:var(--wax);flex:none}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--muted)}
 
-footer{padding-block:32px 48px;color:var(--muted);font-size:.85rem}
-footer p{max-width:80ch;margin-bottom:8px}
+footer{padding-block:40px 56px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line)}
+footer p{max-width:80ch;margin-bottom:10px}
+footer a{margin-right:14px}
 
 @media (max-width:900px){
+  section > .wrap > header{grid-template-columns:1fr;align-items:start}
+  .hero{background-image:linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, var(--bg) 55%), var(--map, none);background-position:50% 20%}
   .hero .grid,.mapgrid{grid-template-columns:1fr}
   .dossier{position:static}
-  .blocs,.ends{grid-template-columns:1fr}
-  .wars{grid-template-columns:1fr}
-  .war{border-right:0;border-bottom:1px solid var(--line)}
+  .blocs,.ends,.wars{grid-template-columns:1fr}
+  .bloc + .bloc{padding-left:0;border-left:0;border-top:1px solid var(--line)}
   .faq,.treenote{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   body{font-size:16px}
+  section{padding-block:52px}
+  .hero{padding-block:48px 40px}
   .hot span{display:none}
   .hot{--d:13px}
   .hot i{border-width:2px}
   .chips{display:flex}
-  .ev{grid-template-columns:1fr;gap:6px}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  nav.top .brand{width:100%}
+  .eras{grid-auto-columns:minmax(132px,1fr)}
+  .ev{grid-template-columns:1fr;gap:4px;padding-left:22px}
+  .ev::before{left:0;transform:none}
+  .ev::after{left:0;top:26px;transform:translateX(-4px)}
+  .ev .yr{text-align:left}
+  .ev .body{padding-left:0}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 14px}
+  .card h3{font-size:1.25rem}
+  nav.top .brand{font-size:1.25rem}
+  nav.top .pages a{padding:5px 10px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 
 <nav class="top"><div class="wrap">
-  <span class="brand">Корони Півночі</span>
-  <a href="index.html" aria-current="page" style="color:var(--ink);border-color:var(--wax)">Королівства</a>
-  <a href="mages.html">Маги і Ложа</a>
-  <a href="witchers.html">Відьмаки</a>
-  <span style="width:1px;height:18px;background:var(--line)"></span>
-  <a href="#overview">Загальна картина</a>
-  <a href="#map">Карта</a>
-  <a href="#timeline">Хронологія</a>
-  <a href="#rulers">Правителі</a>
-  <a href="#ciri">Родовід Цірі</a>
-  <a href="#faq">Де всі плутаються</a>
+  <div class="row"><a class="brand" href="index.html">Корони Півночі</a><div class="pages"><a href="index.html" aria-current="page">Королівства</a><a href="mages.html">Маги і Ложа</a><a href="witchers.html">Відьмаки</a></div></div>
+  <div class="toc">
+    <a href="#overview">Загальна картина</a>
+    <a href="#map">Карта</a>
+    <a href="#timeline">Хронологія</a>
+    <a href="#rulers">Правителі</a>
+    <a href="#ciri">Родовід Цірі</a>
+    <a href="#faq">Де всі плутаються</a>
+  </div>
 </div></nav>
 
 <div class="hero"><div class="wrap grid">
   <div>
-    <p class="eyebrow">Політична карта і хронологія світу «Відьмака»</p>
-    <h1>Хто правив <em>Північчю</em> і чому все змінювалось</h1>
+    <h1>Хто правив Північчю і чому все змінювалось</h1>
     <p class="lede">Карта королівств із перемикачем років, хронологія від Сполучення Сфер до «Крові і вина», картки правителів із кадрами з ігор і серіалу Netflix. Роки подано за ігровим каноном: «Відьмак 1» відбувається у 1270, «Відьмак 2» у 1271, «Відьмак 3» у 1272 році.</p>
   </div>
   <div class="sources">
@@ -252,7 +293,6 @@ footer p{max-width:80ch;margin-bottom:8px}
 
 <section id="overview"><div class="wrap">
   <header>
-    <p class="eyebrow">За одну хвилину</p>
     <h2>Три сили на одному континенті</h2>
     <p class="lede">Майже вся політика «Відьмака» зводиться до одного конфлікту. На півдні велика імперія Нільфгаард. На півночі десяток королівств, які сваряться між собою, поки імперія не перейде річку Яругу. Усе інше живе між ними.</p>
   </header>
@@ -274,15 +314,14 @@ footer p{max-width:80ch;margin-bottom:8px}
     </div>
   </div>
   <div class="wars">
-    <div class="war"><span class="yr">1263 · Перша війна</span><h3>Падіння Цинтри</h3><p>Нільфгаард захоплює Цинтру, Каланте гине. Північ зупиняє імперію в битві під Содденським пагорбом. Фінал 1 сезону серіалу.</p></div>
-    <div class="war"><span class="yr">1267–1268 · Друга війна</span><h3>Танедд і Бренна</h3><p>Переворот чародіїв на Танедді, імперія захоплює Аедирн і Лірію. Північ перемагає під Бренною, Мир у Цинтрі. Кінець книжкової саги.</p></div>
-    <div class="war"><span class="yr">1272 · Третя війна</span><h3>Війна «Відьмака 3»</h3><p>Після вбивства королів Півночі Нільфгаард знову йде на північ і окуповує Темерію. Радовид Реданський воює і з імперією, і з чародійками.</p></div>
+    <div class="war"><span class="yr">1263</span><span class="kind">Перша війна</span><h3>Падіння Цинтри</h3><p>Нільфгаард захоплює Цинтру, Каланте гине. Північ зупиняє імперію в битві під Содденським пагорбом. Фінал 1 сезону серіалу.</p></div>
+    <div class="war"><span class="yr">1267–1268</span><span class="kind">Друга війна</span><h3>Танедд і Бренна</h3><p>Переворот чародіїв на Танедді, імперія захоплює Аедирн і Лірію. Північ перемагає під Бренною, Мир у Цинтрі. Кінець книжкової саги.</p></div>
+    <div class="war"><span class="yr">1272</span><span class="kind">Третя війна</span><h3>Війна «Відьмака 3»</h3><p>Після вбивства королів Півночі Нільфгаард знову йде на північ і окуповує Темерію. Радовид Реданський воює і з імперією, і з чародійками.</p></div>
   </div>
 </div></section>
 
 <section id="map"><div class="wrap">
   <header>
-    <p class="eyebrow">Інтерактивна карта</p>
     <h2>Хто кому належав у різні роки</h2>
     <p class="lede">Оберіть рік угорі, потім натисніть королівство на карті. Колір точки показує, під чиєю владою земля перебувала в цей момент. Справа з'явиться столиця, ланцюжок правителів і що там відбувалося.</p>
   </header>
@@ -300,7 +339,6 @@ footer p{max-width:80ch;margin-bottom:8px}
 
 <section id="timeline"><div class="wrap">
   <header>
-    <p class="eyebrow">Хронологія</p>
     <h2>Від Сполучення Сфер до Туссенту</h2>
     <p class="lede">Кожна подія позначена джерелом, де її показано. Фільтр нижче залишає тільки те, що є в іграх або в серіалі. Натисніть на обличчя, щоб відкрити картку персонажа.</p>
   </header>
@@ -315,15 +353,14 @@ footer p{max-width:80ch;margin-bottom:8px}
 
 <section id="rulers"><div class="wrap">
   <header>
-    <p class="eyebrow">Галерея</p>
     <h2>Правителі та ті, хто стояв за троном</h2>
     <p class="lede">На кожній картці можна перемкнути кадр: гра або серіал. Якщо персонажа немає в серіалі чи в іграх, кнопка неактивна. Під фото вказано джерело кадру, у серіальних картках також актор.</p>
   </header>
   <div class="cardtools">
-    <span class="eyebrow" style="margin-right:4px">Показати всі як:</span>
+    <span class="lbl">Показати всі як:</span>
     <button class="flt" id="allGame" aria-pressed="false">Гра</button>
     <button class="flt" id="allSeries" aria-pressed="false">Серіал</button>
-    <span class="eyebrow" style="margin:0 4px 0 14px">Держава:</span>
+    <span class="lbl">Держава:</span>
     <select id="realmFilter" class="flt"></select>
     <button class="flt" id="openAll" aria-pressed="false">Розгорнути всі історії</button>
   </div>
@@ -332,7 +369,6 @@ footer p{max-width:80ch;margin-bottom:8px}
 
 <section id="ciri"><div class="wrap">
   <header>
-    <p class="eyebrow">Головний ключ до сюжету</p>
     <h2>Чому всі хочуть Цірі</h2>
     <p class="lede">Цірі — онука королеви Каланте і донька імператора Емгира. Хто контролює Цірі, той має законне право на Цинтру, а через неї і на гирло Яруги. Саме тому Нільфгаард почав війну, і тому Емгир шукає доньку ще й у «Відьмаку 3».</p>
   </header>
@@ -368,7 +404,6 @@ footer p{max-width:80ch;margin-bottom:8px}
 
 <section id="faq"><div class="wrap">
   <header>
-    <p class="eyebrow">Де всі плутаються</p>
     <h2>Короткі відповіді на типові питання</h2>
   </header>
   <div class="faq">
@@ -386,7 +421,7 @@ footer p{max-width:80ch;margin-bottom:8px}
 <footer><div class="wrap">
   <p>Кадри персонажів і карта взяті з The Witcher Wiki (Fandom): ігрові зображення належать CD PROJEKT RED, серіальні — Netflix. Сторінка є неофіційним фанатським довідником і не пов'язана з правовласниками.</p>
   <p>Дати подано за ігровим каноном вікі. У книгах і серіалі окремі роки можуть відрізнятися на рік-два.</p>
-  <p><a href="mages.html">Маги і Ложа →</a> · <a href="witchers.html">Відьмаки і школи →</a></p>
+  <p><a href="mages.html">Маги і Ложа</a>, <a href="witchers.html">Відьмаки і школи</a></p>
 </div></footer>
 
 <script>
@@ -403,8 +438,8 @@ const STATUS = {
 };
 
 const ERAS = [
-  {id:"1263", t:"1263", s:"Падіння Цинтри · серіал S1–S2"},
-  {id:"1268", t:"1268", s:"Мир у Цинтрі · кінець саги"},
+  {id:"1263", t:"1263", s:"Падіння Цинтри, серіал S1–S2"},
+  {id:"1268", t:"1268", s:"Мир у Цинтрі, кінець саги"},
   {id:"1271", t:"1271", s:"Відьмак 2"},
   {id:"1272", t:"1272", s:"Відьмак 3"}
 ];
@@ -529,7 +564,7 @@ const CH = {
   anais:{n:"Анаїс Ла Валетт",r:"Донька Фольтеста",y:"нар. ≈1263",p:"Позашлюбна донька короля і головна претендентка на корону Темерії. У W3 її долю визначають вибори гравця: від заручниці Радовида до васальної королеви під Нільфгаардом.",m:["game"],realm:"temeria"},
   roche:{n:"Вернон Роше",r:"Командир «Синіх Смуг»",y:"W2–W3",p:"Вірний пес Фольтеста. Після окупації веде темерських партизан, разом із Дійкстрою планує вбивство Радовида.",m:["game"],realm:"temeria"},
   vizimir:{n:"Візимир II",r:"Король Реданії",y:"† 1267",p:"Хитрий, але практичний король. Убитий найманцем у розпал Другої війни, трон дістався малолітньому синові.",a:"Ed Birch",m:["book","series"],realm:"redania"},
-  radovid:{n:"Радовид V Суворий",r:"Король Реданії",y:"нар. 1255 · править з ≈1270",p:"Колись тихий хлопчик під опікою Філіппи. У W3 параноїдальний тиран, але й найсильніший полководець Півночі. Може загинути від змови Роше і Дійкстри.",a:"Hugh Skinner",m:["book","game","series"],realm:"redania"},
+  radovid:{n:"Радовид V Суворий",r:"Король Реданії",y:"нар. 1255, править з ≈1270",p:"Колись тихий хлопчик під опікою Філіппи. У W3 параноїдальний тиран, але й найсильніший полководець Півночі. Може загинути від змови Роше і Дійкстри.",a:"Hugh Skinner",m:["book","game","series"],realm:"redania"},
   philippa:{n:"Філіппа Ейльгарт",r:"Чародійка, радниця Реданії",y:"сага – W3",p:"Засновниця Ложі чародійок і фактична правителька при юному Радовиді. Він їй цього не пробачив.",a:"Cassie Clare",m:["book","game","series"],realm:"redania"},
   dijkstra:{n:"Сигізмунд Дійкстра",r:"Шеф реданської розвідки",y:"сага – W3",p:"У сазі — права рука Візимира. У W3 ховається в Новіграді як бос Сигі Ройвен і хоче повернутися до влади.",a:"Graham McTavish",m:["book","game","series"],realm:"redania"},
   henselt:{n:"Хенсельт",r:"Король Каедвену",y:"† ≈1271",p:"Грубий воїн і амбітний загарбник. Скористався війною, щоб відрізати шматок Аедирну. Гине наприкінці W2 за будь-якого вибору.",a:"Magnus Samuelsson (S2), Edward Rowe (S4)",m:["book","game","series"],realm:"kaedwen"},
@@ -704,7 +739,7 @@ function renderDossier(){
   const r = REALMS.find(x => x.id === realm), [k, note] = r.st[era], s = STATUS[k];
   const e = ERAS.find(x => x.id === era);
   $("#dossier").innerHTML = `
-    <div class="head"><span class="eyebrow">${e.t} · ${esc(e.s)}</span><h3>${esc(r.name)}</h3>
+    <div class="head"><span class="eyebrow">${e.t}, ${esc(e.s)}</span><h3>${esc(r.name)}</h3>
       <span class="status" style="--sc:var(${s.c})"><i></i>${s.label}</span></div>
     <dl class="facts"><dt>Столиця</dt><dd>${esc(r.cap)}</dd></dl>
     <p class="eranote" style="--sc:var(${s.c})">${esc(note)}</p>
@@ -751,10 +786,10 @@ function cardHTML(id){
   const has = {game: !!i.game, series: !!i.series};
   const v = view[id] && has[view[id]] ? view[id] : (has.game ? "game" : (has.series ? "series" : null));
   const src = v ? i[v] : null;
-  const cap = v === "series" ? `Серіал Netflix${c.a ? " · " + c.a : ""}` : (v === "game" ? (/gwent/i.test(i.gameSrc||"") ? "«Гвинт», CD PROJEKT RED" : /Tw2/i.test(i.gameSrc||"") ? "Відьмак 2" : /Tw3/i.test(i.gameSrc||"") ? "Відьмак 3" : "Ігри CD PROJEKT RED") : "");
+  const cap = v === "series" ? `Серіал Netflix${c.a ? ", " + c.a : ""}` : (v === "game" ? (/gwent/i.test(i.gameSrc||"") ? "«Гвинт», CD PROJEKT RED" : /Tw2/i.test(i.gameSrc||"") ? "Відьмак 2" : /Tw3/i.test(i.gameSrc||"") ? "Відьмак 3" : "Ігри CD PROJEKT RED") : "");
   return `<div class="pic">${src ? `<img src="${src}" alt="${esc(c.n)}" loading="lazy"><span class="cap">${esc(cap)}</span>` : `<div class="none">Кадру немає: персонаж є тільки в книгах</div>`}</div>
     <div class="toggle"><button data-v="game" aria-pressed="${v==="game"}" ${has.game?"":"disabled"}>Гра</button><button data-v="series" aria-pressed="${v==="series"}" ${has.series?"":"disabled"}>Серіал</button></div>
-    <div class="txt"><h3>${esc(c.n)}</h3><span class="role">${esc(c.r)}</span><span class="yrs">${esc(c.y)} · ${esc(c.realm==="none"?"поза державами":realmName(c.realm))}</span>
+    <div class="txt"><h3>${esc(c.n)}</h3><span class="role">${esc(c.r)}</span><span class="yrs">${esc(c.y)}, ${esc(c.realm==="none"?"поза державами":realmName(c.realm))}</span>
       <p>${esc(c.p)}</p>
       ${c.b?`<details ${openAll?"open":""}><summary>Історія</summary><p>${esc(c.b)}</p><p class="game"><b>В іграх і поза книгами:</b> ${esc(c.g)}</p></details>`:""}
       ${c.a?`<span class="actor">У серіалі: <b>${esc(c.a)}</b></span>`:""}
@@ -785,7 +820,7 @@ function openCard(id){
   el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1600);
 }
 
-if (IMG._map) $("#mapimg").src = IMG._map.img;
+if (IMG._map){ $("#mapimg").src = IMG._map.img; document.querySelector(".hero").style.setProperty("--map", `url(${IMG._map.img})`); }
 renderLegend(); renderMap(); renderFilters(); renderTL(); renderCards();
 </script>
 
